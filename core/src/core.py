@@ -66,6 +66,8 @@ class Core:
 		restHandlers = {}
 		global sseHandlers
 		sseHandlers = {}
+
+	def start(self):
 		#Load config file
 		with open(os.path.join(rootPath, 'etc/config.json'),'r') as input:
 			data = input.read()
@@ -241,6 +243,8 @@ class Watcher:
 
 def main():
 	Watcher()
-	Core()
+	coreInstance = Core()
+	coreInstance.start()
+	
 if __name__ ==  "__main__":
 	main()

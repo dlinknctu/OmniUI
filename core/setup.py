@@ -11,5 +11,6 @@ setup(
     data_files = [('etc', ['etc/config.json'])],
     entry_points = {
         'console_scripts': ['omniui=src.core:main'],
-    }
+    },
+    test_suite = 'test'
 )

@@ -6,11 +6,12 @@ function test_ui {
     cd ..
 }
 
-function test_core_install {
+function test_core {
     cd core
-    sudo python setup.py install
+    python setup.py install --user
+    python setup.py test
     cd ..
 }
 
 test_ui
-test_core_install
+test_core
