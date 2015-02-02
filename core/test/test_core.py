@@ -37,6 +37,11 @@ class CoreTestCase(unittest.TestCase):
         result = self.coreInstance.ipcHandlers['ipc']
         self.assertEquals(expected, result)
 
+    def test_eventHandler(self):
+        eventHandlerInstance = core.EventHandler('event', self.handler)
+        self.assertEquals(eventHandlerInstance.eventName, 'event')
+        self.assertEquals(eventHandlerInstance.handler, self.handler)
+
 """
     def registerEvent(self,eventName,generator,interval):
         thread = Thread(target=self.iterate, args=(eventName,generator,interval))
