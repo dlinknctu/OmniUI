@@ -12,6 +12,8 @@ import threading
 from threading import Thread
 from flask import Flask, Response, request, abort, render_template
 from flask_cors import *
+from pkg_resources import Requirement, resource_filename
+rootPath = resource_filename(Requirement.parse("omniui"),"")
 
 app = Flask(__name__)
 app.config['CORS_ORIGINS'] = ['http://localhost']
@@ -65,11 +67,11 @@ class Core:
 		global sseHandlers
 		sseHandlers = {}
 		#Load config file
-		with open(os.path.join(sys.path[0],'config.json'),'r') as input:
+		with open(os.path.join(rootPath, 'etc/config.json'),'r') as input:
 			data = input.read()
 		config = json.loads(data)
 		#Default values
-		logFile = 'log.txt'
+		logFile = '/tmp/omniui.log'
 		logLevel = logging.ERROR
 		restIP = 'localhost'
 		restPort = 5567
@@ -92,8 +94,7 @@ class Core:
 		#Loading module
 		sys.modules['plugins'] = plugins = type(sys)('plugins')
 		plugins.__path__ = []
-		plugins.__path__.append (os.path.join(sys.path[0],ControllerType))
-
+		plugins.__path__.append (os.path.join(rootPath, 'src', ControllerType))
 
 		for module in config:
 			if module != "LogFile" and module != "REST" and module != "ControllerType" : # load modules other than LogFile and REST
